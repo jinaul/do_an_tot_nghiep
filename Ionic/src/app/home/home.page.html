@@ -1,0 +1,18 @@
+<ion-content class="body">
+    <div class="content" style="padding: 0; margin: 8em 0 0 0; text-align: center; padding: 0 5% 0 5%;">
+        <h1 style="color: yellow">Đăng nhập</h1>
+        <ion-item class="number">
+            <ion-label position="floating ">
+                <ion-span>Số điện thoại</ion-span>
+            </ion-label>
+            <ion-input></ion-input>
+        </ion-item>
+        <div id="recaptcha-container" style="margin: 0.5em 0 0.2em -1.7em;"></div>
+        <ion-button color="warning">Lấy mã xác nhận</ion-button>
+        <ion-item class="code" style="color: dodgerblue;">
+            <ion-label>Nhập mã xác nhận</ion-label>
+            <ion-input></ion-input>
+        </ion-item>
+        <ion-button color="warning" [routerLink]="['/content', 0334371730]">Đăng nhập</ion-button>
+    </div>
+</ion-content>

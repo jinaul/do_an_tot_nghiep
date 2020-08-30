@@ -1,0 +1,112 @@
+<body id="body">
+    <div class="header">
+        <div class="container" style="height: 100%;">
+            <div class="row" style="height: 100%;">
+                <div class="col-sm-3" style="padding: 0;">
+                    <a class="navbar-brand logo" href="#" style="padding: 1% 0 0 6%;">
+                        <img src="https://firebasestorage.googleapis.com/v0/b/data-trees.appspot.com/o/homes%2FLOGO-removebg-preview.png?alt=media&token=4faa588a-1403-4726-8caf-5e977b76dfe8" style="width: 20%; margin-top: -1%;"> Thế giới cây cảnh
+                    </a>
+                </div>
+                <div class="col-sm-3">
+                    <div class="box">
+                        <input type="text" placeholder="Search here" (keyup)="onSearch($event)">
+                        <a><i class='fas fa-search'></i></a>
+                    </div>
+                    <div id="reusult" style="display: none;">
+                        <ul class="list-group" style="position: absolute; z-index: 1; width: 80%; margin: 0 0 0 0.7em; height: 20em; overflow-y: auto;">
+                            <li class="list-group-item" *ngFor='let i of items' (click)='search(i.id)'>{{i.name}}</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-2 cart">
+                    <button type="button" class="btn" [routerLink]="['cart']">
+            <span>Giỏ hàng</span>
+            <i class="fa fa-shopping-cart"></i>
+          </button>
+                </div>
+                <div class="col-sm-2 history-buy">
+                    <button type="button" class="btn" data-toggle="modal" data-target="#verifi">
+            <span>Lịch sử mua hàng</span>
+          </button>
+                </div>
+                <div class="col-sm-2" style="padding: 0.7em 0 0 0;">
+                    <p style="color: yellow; font-weight: bold; font-size: 100%;">Tư vấn: 0334371730</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="menu">
+        <div class="container" style="height: 100%;">
+            <div class="row menuitem" style="height: 100%;">
+                <div class="col-sm-3" [routerLink]="['product/indoorplants']">
+                    Cây trồng trong nhà
+                </div>
+                <div class="col-sm-1" [routerLink]="['product/shrubsbushes']">
+                    Cây bụi
+                </div>
+                <div class="col-sm-3" [routerLink]="['product/climbingspreadnegp']">
+                    Cây ưa trồng trong vườn
+                </div>
+                <div class="col-sm-2" [routerLink]="['product/succulentscacti']">
+                    Cây mọng nước
+                </div>
+                <div class="col-sm-2" [routerLink]="['product/fengshuitree']">
+                    Cây phong thuỷ
+                </div>
+                <div class="col-sm-1" [routerLink]="['product/flowerpot']">
+                    Hoa chậu
+                </div>
+            </div>
+        </div>
+    </div>
+    <!------------------------------------------------------------------------------------------------------------------------------------->
+    <!--Modal History Buy-->
+    <div class="modal fade" id="verifi" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div style="text-align: center;">
+                        <h3>Tra cứu thông tin đơn hàng</h3>
+                        <h6>Vui lòng nhập số điện thoại đã đặt hàng</h6>
+                        <input type="text" class="inputnumber" maxlength="10" [(ngModel)]='number'>
+                        <div id="recaptcha-container" style="margin: 1em 0 1em 18%;"></div>
+                        <button type="button" class="btn btn-warning" (click)='sendCode()'>Lấy mã xác thực</button>
+                        <div *ngIf='windowRef.confirmationResult' style="margin: 1em 0 0 0;">
+                            <div class="row">
+                                <h6 style="margin: 0 0 1em 4.5%;">Vui lòng nhập mã xác thực vừa gửi đến số điện thoại của bạn!</h6>
+                                <input type="text" style="width: 18%; margin: 0 1% 0 32%;" class="form-control" name="code" [(ngModel)]='verificationCode'>
+                                <button type="button" class="btn btn-secondary" (click)='verifiCode()' style="margin: 0;" data-dismiss="modal">Xác thực</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <router-outlet></router-outlet>
+    <div class="footer">
+        <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-3">
+                <img src="https://firebasestorage.googleapis.com/v0/b/data-trees.appspot.com/o/homes%2Flogo-vingarden-removebg-preview.png?alt=media&token=dc7ce5ae-f6e6-4927-8657-2a8ac89bea27" style="width: 100%; height: 10em;">
+            </div>
+            <div class="col-sm-4" style="color:white">
+                <h5>Liên hệ</h5>
+                <h6 style="color: yellow">Công ty TNHH Thế Giới Cây Cảnh</h6>
+                <span>Địa chỉ: 138c/6, ấp 3, An Phú Tây, Bình Chánh</span><br>
+                <span>SĐT: 0334371730</span><br>
+                <span>Email: jinaul3003@gmail.com</span><br>
+                <span>Facebook: Thế Giới Cây Cảnh TP.HCM</span>
+            </div>
+            <div class="col-sm-3">
+                <img (click)='open()' src="https://firebasestorage.googleapis.com/v0/b/data-trees.appspot.com/o/homes%2Fvitri.png?alt=media&token=45cbaf9a-adfa-4470-af55-ab01243c3f16" style="width: 100%; height: 8em; margin: 1em 0 0 0;">
+            </div>
+            <div class="col-sm-1"></div>
+        </div>
+    </div>
+    <script>
+        $(function() {
+            $(".myPopover").popover();
+        });
+    </script>
+</body>

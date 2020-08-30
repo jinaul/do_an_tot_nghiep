@@ -1,0 +1,8 @@
+.slide {
+    height: 30em;
+}
+
+.slide div div img {
+    height: 30em;
+    width: 100%;
+}

@@ -1,0 +1,30 @@
+<ion-content class="body">
+    <ion-header translucent>
+        <ion-toolbar>
+            <ion-searchbar [showCancelButton]="shouldShowCancel" (ionInput)="onSearch($event)"></ion-searchbar>
+        </ion-toolbar>
+    </ion-header>
+    <ion-item>
+        <ion-label>Tất cả</ion-label>
+        <ion-select interface="popover" [(ngModel)]="type" (ionChange)=filter()>
+            <ion-select-option value="Cây trồng trong nhà">Cây trồng trong nhà</ion-select-option>
+            <ion-select-option value="Cây bụi">Cây bụi</ion-select-option>
+            <ion-select-option value="Cây ưa trồng trong vườn">Cây trồng trong vườn</ion-select-option>
+            <ion-select-option value="Cây mọng nước">Cây mọng nước</ion-select-option>
+            <ion-select-option value="Cây phong thuỷ">Cây phong thuỷ</ion-select-option>
+            <ion-select-option value="Hoa chậu">Hoa chậu</ion-select-option>
+        </ion-select>
+    </ion-item>
+    <ion-list *ngFor='let i of items'>
+        <ion-item [routerLink]="['/detail', i.id]">
+            <ion-avatar slot="start">
+                <img src={{i.imgs[0]}}>
+            </ion-avatar>
+            <ion-label>
+                <h2>{{i.name}}</h2>
+                <h3>{{i.type}}</h3>
+                <p>{{i.price}}</p>
+            </ion-label>
+        </ion-item>
+    </ion-list>
+</ion-content>

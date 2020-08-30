@@ -1,0 +1,180 @@
+<div class="container">
+    <table id="cart" class="table table-hover table-condensed">
+        <thead>
+            <tr>
+                <th style="width:40%">Tên sản phẩm</th>
+                <th style="width:10%">Giá</th>
+                <th style="width:13%">Số lượng</th>
+                <th style="width:22%" class="text-center">Thành tiền</th>
+                <th style="width:15%"> </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let i of items; let j = index">
+                <td data-th="Product">
+                    <div class="row">
+                        <div class="col-sm-4 hidden-xs">
+                            <img src={{i.img}} style="width: 100%; height: 4.7em;">
+                        </div>
+                        <div class="col-sm-8">
+                            <h4 class="nomargin">{{i.name}}</h4>
+                            <p>{{i.type}}</p>
+                        </div>
+                    </div>
+                </td>
+                <td data-th="Price">{{i.price}}</td>
+                <td data-th="Quantity"><input class="form-control text-center" [(ngModel)]='items[j].number' (change)="changeintomoney(j)" type="number" /></td>
+                <td data-th="Subtotal" class="text-center">{{i.intomoney}} đ</td>
+                <td class="actions" data-th="">
+                    <button class="btn btn-danger btn-sm" (click)="removeitem(i.id)"><i class='fas fa-trash-alt'></i></button>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td><a (click)='back()' class="btn btn-warning"><i class="fa fa-angle-left"></i> Tiếp tục mua hàng</a>
+                </td>
+                <td colspan="2" class="hidden-xs"></td>
+                <td class="hidden-xs text-center"><strong>Tổng tiền {{intomoney}} đ</strong>
+                </td>
+                <td>
+                    <a (click)='fail()' class="btn btn-success btn-block" *ngIf='show'>Thanh toán <i
+              class="fa fa-angle-right"></i></a>
+                    <a class="btn btn-success btn-block" data-toggle="modal" data-target="#exampleModal" *ngIf='!show'>Đặt hàng <i
+              class="fa fa-angle-right"></i></a>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+    <!------------------------------------------------------------------------------------------------------------------------------------->
+    <!--Modal thanh toán-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Đơn hàng</h5>
+                </div>
+                <div class="modal-body" style="overflow: auto; height: 33em">
+                    <table style="margin-bottom: 1em">
+                        <tbody>
+                            <tr style="font-size: 105%; border-bottom: 1px solid dimgray;" *ngFor="let i of items; let j = index">
+                                <td style="width: 20%;">
+                                    <img src={{i.img}} style="width: 100%; height: 4em;">
+                                </td>
+                                <td style="width: 5%;"></td>
+                                <td style="width: 75%;">
+                                    <div>
+                                        <h4>{{i.name}}</h4>
+                                    </div>
+                                    <table style="width: 100%;">
+                                        <tbody>
+                                            <tr>
+                                                <td style="width: 65%; font-weight: 450;">
+                                                    <span>Số lượng:</span><br>
+                                                    <span>Thành tiền:</span>
+                                                </td>
+                                                <td style="width: 35%;">
+                                                    <span style="font-weight: bold;">{{i.number}}</span><br>
+                                                    <span style="font-weight: bolder; color:red;">{{i.intomoney}} &#8363;</span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid dimgray;">
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <table style="width: 100%;">
+                                        <tbody>
+                                            <tr style="font-weight: 500;">
+                                                <td style="width: 65%; font-weight: bold;">
+                                                    <span>Phí vận chuyển (tạm tính):</span><br>
+                                                </td>
+                                                <td style="width: 35%;">
+                                                    <span style="font-weight: bolder; color:red;">50000 &#8363;</span>
+                                                </td>
+                                            </tr>
+                                            <tr style="font-size: 120%;">
+                                                <td style="width: 65%; font-weight: bold;">
+                                                    <span>Tổng tiền:</span><br>
+                                                </td>
+                                                <td style="width: 35%;">
+                                                    <span style="font-weight: bolder; color:red;">{{intomoney + 50000}} &#8363;</span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <span style="font-weight: 500;">Thông tin của quí khách: </span>
+                    <div style="margin: 0.5em 0 0 0">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="gneder" value="Anh" [(ngModel)]='orderform.gender'>
+                            <label class="form-check-label" for="inlineRadio1">Anh</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="gneder" value="Chị" [(ngModel)]='orderform.gender'>
+                            <label class="form-check-label" for="inlineRadio2">Chị</label>
+                        </div>
+                        <div class="row" style="margin-top: 0.5em;">
+                            <div class="col-sm-7">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">Tên</span>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="ví dụ: Nguyễn Văn A" aria-label="Username" aria-describedby="basic-addon1" [(ngModel)]='orderform.name'>
+                                </div>
+                            </div>
+                            <div class="col-sm-5">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">SĐT</span>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="0xxxxxxxx" aria-label="Username" aria-describedby="basic-addon1" [(ngModel)]='orderform.number'>
+                                </div>
+                            </div>
+                        </div>
+                        <span style="font-weight: 500;">Địa chỉ giao hàng: </span>
+                        <div class="form-group" style="margin-top: 0.5em;">
+                            <label for="exampleFormControlSelect1">Tỉnh, thành: </label>
+                            <select class="form-control" id="exampleFormControlSelect1" [(ngModel)]='provinceandcitys' (change)=(changeprovinceandcity())>
+                <option>---Chọn---</option>
+                <option *ngFor='let i of local'>{{i.name}}</option>
+              </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Quận, huyện: </label>
+                            <select class="form-control" id="exampleFormControlSelect1" [(ngModel)]='districts' (change)=(changedistrict())>
+                <option>---Chọn---</option>
+                <option *ngFor='let i of district'>{{i.name}}</option>
+              </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Phường, xã: </label>
+                            <select class="form-control" id="exampleFormControlSelect1" [(ngModel)]='wards'>
+                <option>---Chọn---</option>
+                <option *ngFor='let i of ward'>{{i.name}}</option>
+              </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Địa chỉ cụ thể: </label>
+                            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Số nhà, tên đường, ấp, ..." [(ngModel)]='specificaddress'>
+                        </div>
+                        <div class="form-group">
+                            <label for="myDate2">Chọn ngày giao hàng: </label>
+                            <input type="date" class="form-control" [(ngModel)]='orderform.deliverydate'>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" #close data-dismiss="modal">Xem lại giỏ hàng</button>
+                    <button type="button" class="btn btn-primary" (click)='order()'>Đặt hàng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

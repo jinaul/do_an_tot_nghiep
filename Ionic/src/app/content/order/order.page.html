@@ -1,0 +1,77 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-row>
+            <ion-col size="2">
+                <ion-back-button defaultHref="/content"></ion-back-button>
+            </ion-col>
+            <ion-col size="10" style="padding: 1em 0 0 0;">
+                <ion-title>Đặt Hàng</ion-title>
+            </ion-col>
+        </ion-row>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-item *ngFor='let i of items'>
+        <ion-avatar slot="start">
+            <img [src]="i.img">
+        </ion-avatar>
+        <ion-label>
+            <h3 style="margin: 0 0 0 3%;">{{i.name}}</h3>
+            <ion-row>
+                <ion-col size="6">
+                    <ion-label>Số Lượng:</ion-label>
+                    <ion-label>Thành tiền:</ion-label>
+                </ion-col>
+                <ion-col size="6">
+                    <ion-label>{{i.number}}</ion-label>
+                    <ion-label>{{i.intomoney}}</ion-label>
+                </ion-col>
+            </ion-row>
+        </ion-label>
+    </ion-item>
+    <h2>Tồng tiền: {{totalmoney}}</h2>
+    <ion-item>
+        <ion-label>Vui lòng chọn</ion-label>
+        <ion-select placeholder="Chọn" [(ngModel)]="orderform.gender">
+            <ion-select-option value="Anh">Anh</ion-select-option>
+            <ion-select-option value="Chị">Chị</ion-select-option>
+        </ion-select>
+    </ion-item>
+    <ion-item style="margin: 0 0 0.5em 0;">
+        <ion-label>Tên: </ion-label>
+        <ion-input [(ngModel)]='orderform.name'></ion-input>
+    </ion-item>
+    <ion-item style="margin: 0 0 0.5em 0;">
+        <ion-label>SĐT: </ion-label>
+        <ion-input [(ngModel)]='orderform.number'></ion-input>
+    </ion-item>
+    <ion-label>Địa chỉ giao hàng</ion-label>
+    <ion-item style="margin: 0.5em 0 0 0;">
+        <ion-label>Tỉnh/Thành Phố: </ion-label>
+        <ion-select ok-text="Chọn" [(ngModel)]='provinceandcitys' (ionChange)=(changeprovinceandcity())>
+            <ion-select-option *ngFor='let i of local'>{{i.name}}</ion-select-option>
+        </ion-select>
+    </ion-item>
+    <ion-item>
+        <ion-label>Quận/Huyện: </ion-label>
+        <ion-select ok-text="Chọn" [(ngModel)]='districts' (ionChange)=(changedistrict())>
+            <ion-select-option *ngFor='let i of district'>{{i.name}}</ion-select-option>
+        </ion-select>
+    </ion-item>
+    <ion-item>
+        <ion-label>Phường/Xã: </ion-label>
+        <ion-select ok-text="Chọn" [(ngModel)]='wards'>
+            <ion-select-option *ngFor='let i of ward'>{{i.name}}</ion-select-option>
+        </ion-select>
+    </ion-item>
+    <ion-item>
+        <ion-label>Địa chỉ cụ thể: </ion-label>
+        <ion-input [(ngModel)]='specificaddress'></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>Ngày giao hàng: </ion-label>
+        <ion-datetime [(ngModel)]="orderform.deliverydate"></ion-datetime>
+    </ion-item>
+    <ion-button (click)='order()'>Đặt Hàng</ion-button>
+</ion-content>

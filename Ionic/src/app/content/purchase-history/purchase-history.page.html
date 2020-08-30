@@ -1,0 +1,14 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Tất cả đơn hàng</ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content *ngFor='let i of orderforms' [routerLink]="['/detail-order', i.id]">
+    <ion-item>
+        <ion-label>
+            <h2>{{i.gender + ' ' + i.name}}</h2>
+            <h3>Trạng thái: {{i.status}}</h3>
+            <p>Ngày đặt hàng: {{i.datetime}}</p>
+        </ion-label>
+    </ion-item>
+</ion-content>

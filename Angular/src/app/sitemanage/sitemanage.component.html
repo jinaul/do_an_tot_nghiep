@@ -1,0 +1,306 @@
+<div class="body">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Tất cả sản phẩm</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Tất cả đơn hàng</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div style="overflow: auto;" class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <div class="container" style="background-color: yellow; width: 100%;">
+                <table style="width: 100%; font-size: 120%;">
+                    <thead style="border-bottom: 1px solid darkgrey;">
+                        <tr>
+                            <th style="width:3%; margin-right: 2%;">ID</th>
+                            <th style="width:28%; margin-right: 2%">Tên sản phẩm</th>
+                            <th style="width:18%; margin-right: 2%">Loại</th>
+                            <th style="width:8%; margin-right: 2%">Số lượng</th>
+                            <th style="width:13%; margin-right: 2%">Giá</th>
+                            <th style="width:8% ; margin-right: 2%">Xuất xứ</th>
+                            <th style="width: 8%;; margin-right: 2%"></th>
+                        </tr>
+                    </thead>
+                    <tbody style="font-weight: 400;">
+                        <tr *ngFor='let i of trees' style="border-bottom: 1px solid darkgrey;">
+                            <td>{{i.id}}</td>
+                            <td>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <img src={{i.imgs[0]}} style="height: 4em; width: 100%;">
+                                    </div>
+                                    <div class="col-sm-8" style="padding: 1.25em 0 0 0;">
+                                        {{i.name}}
+                                    </div>
+                                </div>
+                            </td>
+                            <td>{{i.type}}</td>
+                            <td>{{i.number}}</td>
+                            <td>{{i.price}} &#8363;</td>
+                            <td>{{i.origin}}</td>
+                            <td>
+                                <button class="btn btn-danger btn-sm" style="margin:0 5% 0 14%;" data-toggle="modal" data-target="#xoa" (click)='f_iddelete(i.id)'><i
+                    class='fas fa-trash-alt'></i></button>
+                                <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#edit" (click)='fillter(i.id)'><i class='fas fa-edit'></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <button class="btn btn-danger btn-sm" style="margin-right: 5%; width: 100%;" data-toggle="modal" data-target="#edit" (click)='new()'><i class='fas fa-plus'></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        <!------------------------------------------------------------------------------------------------------------------------------------->
+        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            <table style="width: 100%; font-size: 120%; color: yellow;">
+                <thead style="border-bottom: 1px solid darkgrey;">
+                    <tr>
+                        <th style="width:3%; margin-right: 2%;">ID</th>
+                        <th style="width:15%; margin-right: 2%">Tên khách hàng</th>
+                        <th style="width:7%; margin-right: 2%">SDT</th>
+                        <th style="width:11%; margin-right: 2%">Ngày đặt hàng</th>
+                        <th style="width:29%; margin-right: 2%">Địa chỉ giao hàng</th>
+                        <th style="width:10% ; margin-right: 2%">Ngày giao hàng</th>
+                        <th style="width: 7%; margin-right: 2%">Trạng thái</th>
+                        <th style="width: 3%; margin-right: 2%"></th>
+                    </tr>
+                </thead>
+                <tbody style="font-weight: 400;">
+                    <tr *ngFor='let i of orderform' style="border-bottom: 1px solid darkgrey;">
+                        <td>{{i.id}}</td>
+                        <td>{{i.name}}</td>
+                        <td>{{i.number}}</td>
+                        <td>{{i.datetime}}</td>
+                        <td>{{i.deliveryaddress}}</td>
+                        <td>{{i.deliverydate}}</td>
+                        <td>{{i.status}}</td>
+                        <td>
+                            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#checkorderform" (click)='checkorderform(i.id)'><i class='fas fa-edit'></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!------------------------------------------------------------------------------------------------------------------------------------->
+    <!--Model Edit-->
+    <div class="modal fade" id="edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body" style="height: 33em; overflow-y: auto;" *ngFor='let i of tree'>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">ID</div>
+                                </div>
+                                <input type="text" class="form-control" id="inlineFormInputGroup" placeholder={{i.id}} disabled>
+                            </div>
+                        </div>
+                        <div class="col-sm-9">
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">Name</div>
+                                </div>
+                                <input type="text" class="form-control" id="inlineFormInputGroup" [(ngModel)]='tree[0].name'>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-7">
+                            <select id="inputState" class="form-control" [(ngModel)]='tree[0].type'>
+                <option selected>Loại</option>
+                <option>Cây trồng trong nhà</option>
+                <option>Cây bụi</option>
+                <option>Cây ưa trồng trong vườn</option>
+                <option>Cây mọng nước</option>
+                <option>Cây phong thuỷ</option>
+                <option>Hoa chậu</option>
+              </select>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">Số lượng</div>
+                                </div>
+                                <input type="number" class="form-control" id="inlineFormInputGroup" [(ngModel)]='tree[0].number'>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">Giá</div>
+                                </div>
+                                <input type="number" class="form-control" id="inlineFormInputGroup" [(ngModel)]='tree[0].price'>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">Xuất xứ</div>
+                                </div>
+                                <input type="text" class="form-control" id="inlineFormInputGroup" [(ngModel)]='tree[0].origin'>
+                            </div>
+                        </div>
+                    </div>
+                    <span style="font-weight: bold;">Hình ảnh:</span>
+                    <div class="row" style="padding: 0 0 0 3%; margin-bottom: 0.5em;">
+                        <div class="card" style="width: 22.75%; height: 4.1em; margin: 0.5em 2% 0 0;" *ngFor='let j of i.imgs'>
+                            <i class='far fa-times-circle deleteimg' (click)='deleteimg(j)'></i>
+                            <img src={{j}} class="card-img-top" style="width: 100%; height: 4em;">
+                        </div>
+                        <div class="card" style="width: 22.75%; height: 4.1em; margin: 0.5em 2% 0 0;">
+                            <label class="fileContainer">
+                <i class='fas fa-plus'></i>
+                <input type="file" (change)="changeListener($event)">
+              </label>
+                        </div>
+                    </div>
+                    <span style="font-weight: bold;">Đặc điểm: <i class='fas fa-plus-circle' data-toggle="modal"
+              data-target="#editextra" (click)='editextra("", "", "characteristics")'></i></span><br>
+                    <ul class="list-group" style="margin: 0.5em 0 0.5em 0" *ngFor='let k of i.characteristics; let l = index'>
+                        <li class="list-group-item d-flex justify-content-between align-items-center" style="padding-right: 0;">
+                            <div class="row" style="width: 100%; padding: 0;">
+                                <div class="col-sm-10" style="width: 100%; padding: 0;">
+                                    <span style="position: relative;">{{k}}</span>
+                                </div>
+                                <div class="col-sm-2" style="width: 100%; padding: 0;">
+                                    <span class="badge badge-danger badge-pill" (click)='deletecharacteristics(l)'><i class='far fa-times-circle'></i></span>
+                                    <span class="badge badge-primary badge-pill" data-toggle="modal" data-target="#editextra" (click)='editextra(k, l, "characteristics")'><i class='far fa-edit'></i></span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <span style="font-weight: bold;">Cách chăm sóc: <i class='fas fa-plus-circle' data-toggle="modal"
+              data-target="#editextra" (click)='editextra("", "", "howtotakecareof")'></i></span>
+                    <ul class="list-group" style="margin: 0.5em 0 0 0" *ngFor='let m of i.howtotakecareof; let n = index'>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div class="row" style="width: 100%; padding: 0;">
+                                <div class="col-sm-10" style="width: 100%; padding: 0;">
+                                    <span style="position: relative;">{{m}}</span>
+                                </div>
+                                <div class="col-sm-2" style="width: 100%; padding: 0;">
+                                    <span class="badge badge-danger badge-pill" (click)='deletehowtotakecareof(n)'><i class='far fa-times-circle'></i></span>
+                                    <span class="badge badge-primary badge-pill" data-toggle="modal" data-target="#editextra" (click)='editextra(m, n, "howtotakecareof")'><i class='far fa-edit'></i></span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)='huy()'>Huỷ</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" (click)='save()'>Lưu thay đổi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="editextra" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <textarea class="form-control" [(ngModel)]="content"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)='huy()'>Huỷ</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" (click)='saveeditextra()'>Lưu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!------------------------------------------------------------------------------------------------------------------------------------->
+    <div class="modal fade" id="checkorderform" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" *ngFor='let i of orderforms'>
+                <div class="modal-body">
+                    <table>
+                        <tbody>
+                            <tr style="font-size: 105%; border-bottom: 1px solid dimgray;" *ngFor='let j of i.product'>
+                                <td style="width: 20%;">
+                                    <img src={{j.img}} style="width: 100%; height: 4.5em;">
+                                </td>
+                                <td style="width: 5%;"></td>
+                                <td style="width: 75%;">
+                                    <div>
+                                        <h4>{{j.name}}</h4>
+                                    </div>
+                                    <table style="width: 100%;">
+                                        <tbody>
+                                            <tr>
+                                                <td style="width: 70%; font-weight: 450;">
+                                                    <span>Số lượng còn trong kho:</span><br>
+                                                    <span>Số lượng khách đặt:</span><br>
+                                                    <span>Thành tiền:</span>
+                                                </td>
+                                                <td style="width: 30%;">
+                                                    <span style="font-weight: bold; color: red;">{{numbertree(j.id)}}</span><br>
+                                                    <span style="font-weight: bold;">{{j.number}}</span><br>
+                                                    <span style="font-weight: bold;">{{j.intomoney}} &#8363;</span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <table style="width: 100%; color: red; font-size: 115%;">
+                                        <tbody>
+                                            <tr>
+                                                <td style="width: 70%; font-weight: bolder;">
+                                                    <span>Tổng tiền khách phải trả:</span>
+                                                </td>
+                                                <td style="width: 30%;">
+                                                    <span style="font-weight: bold;">{{i.totalmoney}} &#8363;</span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng<a #closes data-dismiss="modal"></a></button>
+                    <button type="button" class="btn btn-secondary" (click)='cancel()' *ngIf=h()>Huỷ Đơn Hàng</button>
+                    <button type="button" class="btn btn-secondary" (click)='confirm()' *ngIf=tn()>Tiếp
+            nhận</button>
+                    <button type="button" class="btn btn-primary" (click)='delivery()' *ngIf=gh()>Giao
+            hàng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Xác nhận Xoá-->
+    <div class="modal fade" id="xoa" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    Bạn có chắc là sẽ xoá?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" (click)='f_delete()'>Đồng ý</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

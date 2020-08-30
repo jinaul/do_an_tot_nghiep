@@ -1,0 +1,40 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-row>
+            <ion-col size="2">
+                <ion-back-button defaultHref="/"></ion-back-button>
+            </ion-col>
+            <ion-col size="10" style="padding: 1em 0 0 0;">
+                <ion-title>Chi tiết đơn hàng</ion-title>
+            </ion-col>
+        </ion-row>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content *ngFor='let i of orderforms'>
+    <ion-item *ngFor='let j of i.product'>
+        <ion-avatar slot="start">
+            <img [src]="j.img">
+        </ion-avatar>
+        <ion-label>
+            <h3 style="margin: 0 0 0 3%;">{{j.name}}</h3>
+            <ion-row>
+                <ion-col size="6">
+                    <ion-label>Số Lượng:</ion-label>
+                    <ion-label>Thành tiền:</ion-label>
+                </ion-col>
+                <ion-col size="6">
+                    <ion-label>{{j.number}}</ion-label>
+                    <ion-label>{{j.intomoney}}</ion-label>
+                </ion-col>
+            </ion-row>
+        </ion-label>
+    </ion-item>
+    <h2>Tồng tiền: {{i.totalmoney}}</h2>
+    <h5>Trạng thái: {{i.status}}</h5>
+    <h5>Người đặt: {{i.name}}</h5>
+    <h5>Ngày đặt: {{i.datetime}}</h5>
+    <h5>Địa chỉ giao hàng: {{i.deliveryaddress}}</h5>
+    <h5>Ngày giao hàng: {{i.deliverydate}}</h5>
+
+</ion-content>

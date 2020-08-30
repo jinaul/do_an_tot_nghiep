@@ -1,0 +1,38 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-row>
+            <ion-col size="2">
+                <ion-back-button defaultHref="/content"></ion-back-button>
+            </ion-col>
+            <ion-col size="10" style="padding: 1em 0 0 0;">
+                <ion-title>Chi tiết sản phẩm</ion-title>
+            </ion-col>
+        </ion-row>
+    </ion-toolbar>
+</ion-header>
+<ion-content *ngFor='let i of tree'>
+    <h2>{{i.name}}</h2>
+    <ion-slides paper style="height: 10em; width: 90%;">
+        <ion-slide *ngFor='let j of i.imgs'>
+            <ion-img [src]="j" style="height: 10em; width: 100%;"></ion-img>
+        </ion-slide>
+    </ion-slides>
+    <h6>Thuộc loại: {{i.type}}</h6>
+    <h6>Giá: {{i.price}}</h6>
+    <h6>Số lượng còn lại: {{i.number}}</h6>
+    <h6>Xuất xứ: {{i.origin}}</h6>
+    <ion-item>
+        <ion-label>Số lượng</ion-label>
+        <ion-input [(ngModel)]="number" type='number'></ion-input>
+    </ion-item>
+    <ion-button color="danger">Mua ngay</ion-button>
+    <ion-button color="warning" (click)='addtocart()'>Bỏ vào giỏ</ion-button><br>
+    <ion-label>Đặc điểm:</ion-label>
+    <ul>
+        <li *ngFor='let k of i.characteristics'>{{k}}</li>
+    </ul>
+    <ion-label>Cách chăm sóc:</ion-label>
+    <ul>
+        <li *ngFor='let l of i.howtotakecareof'>{{l}}</li>
+    </ul>
+</ion-content>

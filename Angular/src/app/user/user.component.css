@@ -1,0 +1,147 @@
+body {
+    padding: 0 15% 0 15%;
+    height: 49.6em;
+    background-image: url('../../assets/leaves-background-hd-wallpapers-600x400.jpg');
+    background-repeat: repeat-x;
+}
+
+.header {
+    background-color: black;
+    width: 100%;
+    height: 3.2em;
+    padding-top: 1px;
+}
+
+.logo {
+    color: yellow;
+    font-size: 150%;
+    font-weight: bolder;
+}
+
+.box {
+    height: 3em;
+    border: 1px solid yellow;
+    border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.box input {
+    background: none;
+    outline: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    width: 0px;
+    transition: 0.8s ease;
+    color: yellow;
+    font-size: 100%;
+}
+
+.box input::placeholder {
+    color: yellow;
+}
+
+.box a {
+    color: yellow;
+    text-align: center;
+    width: 25%;
+    font-size: 100%;
+}
+
+.box:hover input {
+    width: 100%;
+    margin: 0 5%;
+    border-bottom: 1px solid yellow;
+}
+
+.box input:focus {
+    width: 100%;
+    margin: 0 5%;
+    border-bottom: 1px solid yellow;
+}
+
+.cart button {
+    padding: 0;
+    background-color: none;
+    color: yellow;
+    border: 1px solid yellow;
+    width: 100%;
+    height: 3em;
+}
+
+.cart button i {
+    margin: 0 0 0 3%;
+}
+
+.history-buy button {
+    padding: 0;
+    background-color: none;
+    color: yellow;
+    width: 100%;
+    height: 3em;
+    font-weight: bold;
+}
+
+.avatar {
+    height: 3em;
+    background: none;
+    border: 2px solid yellow;
+    border-radius: 100%;
+}
+
+.account {
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+.account::after {
+    display: none;
+}
+
+.menu {
+    background-color: yellow;
+    height: 2em;
+    text-align: center;
+    font-weight: bolder;
+}
+
+.menuitem {
+    height: 100%;
+}
+
+.menuitem div {
+    padding: 2px 0 0 0;
+}
+
+.menuitem div:hover {
+    background-color: white;
+}
+
+.menuitem div:first {
+    background-color: white;
+}
+
+.inputnumber {
+    outline: none;
+}
+
+.inputnumber[type=text] {
+    background: #ededed url(https://img.icons8.com/cute-clipart/28/000000/cell-phone.png) no-repeat 5px center;
+    border: solid 1px #ccc;
+    padding: 9px 10px 9px 32px;
+    width: 50%;
+    -webkit-border-radius: 10em;
+    -moz-border-radius: 10em;
+    border-radius: 10em;
+    -webkit-transition: all .5s;
+    -moz-transition: all .5s;
+    transition: all .5s;
+}
+
+.footer {
+    height: 10em;
+    background-color: black;
+}

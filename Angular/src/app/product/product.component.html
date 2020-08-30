@@ -1,0 +1,29 @@
+<div class="row" style="padding: 0 1.5% 0 1.5%;">
+    <div class="card" style="width: 23%; margin: 1em 1% 0.5em 1%;" *ngFor="let i of trees | paginate: {itemsPerPage: pagesize, currentPage: pagecurrent}">
+        <img src={{i.imgs[0]}} class="d-block w-100 ">
+        <div class="card-body ">
+            <h5 class="card-title ">{{i.name}}</h5>
+            <h6 style="display: inline; ">Trạng thái: </h6>
+            <h6 style="color: red; display: inline; ">{{status(i.number)}}</h6>
+            <h4 style="margin: 0 0 1em 0; ">Giá: {{i.price}} &#8363;</h4>
+            <button type="button " class="btn btn-outline-primary btn-block " (click)="detail(i.id) ">Xem chi tiết</button>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <nav aria-label="Page navigation example" style="margin: 0 auto;">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link" aria-label="Previous" (click)='previrous()'>
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item" *ngFor='let x of pages()'><a class="page-link" (click)='currentpage(x)'>{{x + 1}}</a></li>
+            <li class="page-item">
+                <a class="page-link" aria-label="Next" (click)='next()'>
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
