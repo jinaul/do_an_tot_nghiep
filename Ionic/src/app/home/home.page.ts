@@ -4,6 +4,8 @@ import * as firebase from 'firebase';
 
 import { WindowService } from '../window.service';
 
+import { Router } from '@angular/router'
+
 export class PhoneNumber {
   country: string;
   number: string
@@ -26,7 +28,7 @@ export class HomePage {
   verificationCode: string;
   user: any;
 
-  constructor(private win: WindowService) {}
+  constructor(private win: WindowService, private route: Router) {}
 
   ngOnInit() {
     this.windowRef = this.win.windowRef;
@@ -54,7 +56,7 @@ export class HomePage {
     this.windowRef.confirmationResult.confirm(this.verificationCode).then(result => {
       this.user = result.user;
       number = '0' + this.user.phoneNumber.slice(3);
-      alert(number);
+      this.route.navigate(['/content', number]);
     }).catch(error => {
       alert(error);
       this.verificationCode = null;

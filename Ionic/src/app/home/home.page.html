@@ -5,14 +5,14 @@
             <ion-label position="floating ">
                 <ion-span>Số điện thoại</ion-span>
             </ion-label>
-            <ion-input></ion-input>
+            <ion-input [(ngModel)]='number'></ion-input>
         </ion-item>
         <div id="recaptcha-container" style="margin: 0.5em 0 0.2em -1.7em;"></div>
-        <ion-button color="warning">Lấy mã xác nhận</ion-button>
-        <ion-item class="code" style="color: dodgerblue;">
+        <ion-button color="warning" (click)='sendCode()'>Lấy mã xác nhận</ion-button>
+        <ion-item *ngIf='windowRef.confirmationResult' class="code" style="color: dodgerblue;">
             <ion-label>Nhập mã xác nhận</ion-label>
-            <ion-input></ion-input>
+            <ion-input [(ngModel)]='verificationCode'></ion-input>
         </ion-item>
-        <ion-button color="warning" [routerLink]="['/content', 0334371730]">Đăng nhập</ion-button>
+        <ion-button *ngIf='windowRef.confirmationResult' color="warning" (click)='verifiCode()'>Đăng nhập</ion-button>
     </div>
 </ion-content>

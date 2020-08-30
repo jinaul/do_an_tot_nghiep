@@ -19,7 +19,7 @@ export class PurchaseHistoryPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.number = '0' + window.location.href.slice(window.location.href.indexOf('content') + 8, window.location.href.indexOf('content') + 17);
+    this.number = window.location.href.slice(window.location.href.indexOf('content') + 8, window.location.href.indexOf('content') + 18);
     this.db.list('orderform').valueChanges().subscribe((data) => {
       this.orderform = data;
       this.orderforms = this.orderform.reverse().filter((orderform) => orderform.number == this.number);

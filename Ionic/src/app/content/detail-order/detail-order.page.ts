@@ -18,7 +18,6 @@ export class DetailOrderPage implements OnInit {
   constructor(private db: AngularFireDatabase, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    console.log(window.location.href);
     this.route.paramMap.subscribe(para => {
       this.number = para.get('number');
     });
